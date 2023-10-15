@@ -1,9 +1,9 @@
 # Laravel SpamProtect
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/yannkuesthardt/laravel-spamprotect)](https://packagist.org/packages/yannkuesthardt/laravel-spamprotect)
-[![Total Downloads](https://img.shields.io/packagist/dt/yannkuesthardt/laravel-spamprotect)](https://packagist.org/packages/yannkuesthardt/laravel-spamprotect)
-[![License](https://img.shields.io/packagist/l/yannkuesthardt/laravel-spamprotect
-)](https://packagist.org/packages/yannkuesthardt/laravel-spamprotect)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/yannkuesthardt/laravel-spamprotect?style=flat-square)](https://packagist.org/packages/yannkuesthardt/laravel-spamprotect)
+[![Total Downloads](https://img.shields.io/packagist/dt/yannkuesthardt/laravel-spamprotect?style=flat-square)](https://packagist.org/packages/yannkuesthardt/laravel-spamprotect)
+[![License](https://img.shields.io/packagist/l/yannkuesthardt/laravel-spamprotect?style=flat-square)](https://github.com/yannkuesthardt/Laravel-SpamProtect/blob/main/LICENSE.md)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/yannkuesthardt/Laravel-SpamProtect/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/yannkuesthardt/Laravel-SpamProtect)
 
 Laravel SpamProtect is a simple package, that encrypts email addresses and phone numbers to protect them against unwanted crawlers and spam.
 
