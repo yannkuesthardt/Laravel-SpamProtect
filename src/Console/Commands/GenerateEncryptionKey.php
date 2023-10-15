@@ -4,6 +4,7 @@ namespace yannkuesthardt\SpamProtect\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
+use Illuminate\Support\Facades\App;
 
 class GenerateEncryptionKey extends Command
 {
@@ -57,14 +58,14 @@ class GenerateEncryptionKey extends Command
         $replaced = preg_replace(
             $this->keyReplacementPattern(),
             'SPAMPROTECT_KEY='.$key,
-            $input = file_get_contents($this->laravel->environmentFilePath())
+            $input = file_get_contents(App::environmentFilePath())
         );
 
         if ($replaced === $input || $replaced === null) {
             $replaced = $input . 'SPAMPROTECT_KEY='.$key;
         }
 
-        file_put_contents($this->laravel->environmentFilePath(), $replaced);
+        file_put_contents(App::environmentFilePath(), $replaced);
 
         return true;
     }

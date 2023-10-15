@@ -2,10 +2,11 @@
 
 namespace yannkuesthardt\SpamProtect\Tests;
 
+use Illuminate\Encryption\Encrypter;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use yannkuesthardt\SpamProtect\SpamProtectServiceProvider;
+use yannkuesthardt\SpamProtect\SpamprotectServiceProvider;
 
-class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
     protected function setUp(): void
     {
@@ -15,12 +16,16 @@ class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            SpamProtectServiceProvider::class,
+            SpamprotectServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
+        config([
+            'app.debug' => true,
+            'app.key' => 'base64:' . base64_encode(Encrypter::generateKey('AES-256-CBC')),
+            'database.default' => 'testing',
+        ]);
     }
 }

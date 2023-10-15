@@ -1,5 +1,11 @@
 <?php
 
-it('can test', function () {
-    expect(true)->toBeTrue();
-});
+namespace yannkuesthardt\SpamProtect\Tests;
+
+class ExampleTest extends TestCase
+{
+    public function test_example(): void
+    {
+        $this->assertTrue(true);
+    }
+}
