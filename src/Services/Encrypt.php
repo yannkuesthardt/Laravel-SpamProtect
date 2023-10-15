@@ -13,11 +13,11 @@ class Encrypt
     }
 
     /**
-     * @param $encryptionKey
-     * @param $value
+     * @param string $encryptionKey
+     * @param string $value
      * @return string
      */
-    public static function cryptoJsAesEncrypt($encryptionKey, $value): string
+    public static function cryptoJsAesEncrypt(string $encryptionKey, string $value): string
     {
         $salt = openssl_random_pseudo_bytes(8);
         $salted = '';
@@ -28,8 +28,8 @@ class Encrypt
         }
         $key = substr($salted, 0, 32);
         $iv  = substr($salted, 32,16);
-        $encrypted_data = openssl_encrypt(json_encode($value), 'aes-256-cbc', $key, true, $iv);
-        $data = array("ct" => base64_encode($encrypted_data), "iv" => bin2hex($iv), "s" => bin2hex($salt));
+        $encrypted_data = openssl_encrypt(json_encode($value), 'aes-256-cbc', $key, 0, $iv);
+        $data = array("ct" => $encrypted_data, "iv" => bin2hex($iv), "s" => bin2hex($salt));
         return base64_encode(json_encode($data));
     }
 
@@ -43,13 +43,14 @@ class Encrypt
     }
 
     /**
-     * @param $expression
+     * @param string $expression
      * @return string
      */
-    public static function renderBladeJs($expression): string
+    public static function renderBladeJs(string $expression): string
     {
-        $src = (is_string($expression) && $expression != '')
-            ? str_replace('\'', '', $expression)
+        $expression = str_replace('\'', '', $expression);
+        $src = ($expression != '')
+            ? $expression
             : "vendor/spamprotect/app.js";
         $script = '<script type="text/javascript" src="' . asset($src) . '"></script>';
         return "<?php echo '" . $script . "'; ?>";

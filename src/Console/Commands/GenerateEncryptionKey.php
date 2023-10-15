@@ -32,10 +32,10 @@ class GenerateEncryptionKey extends Command
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return bool
      */
-    protected function setKeyInEnvironmentFile($key): bool
+    protected function setKeyInEnvironmentFile(string $key): bool
     {
         $currentKey = config('spamprotect.key');
 
