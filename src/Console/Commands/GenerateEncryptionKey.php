@@ -5,6 +5,7 @@ namespace yannkuesthardt\SpamProtect\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Support\Facades\App;
+use yannkuesthardt\SpamProtect\Services\Encrypt;
 
 class GenerateEncryptionKey extends Command
 {
@@ -21,7 +22,7 @@ class GenerateEncryptionKey extends Command
      */
     public function handle(): void
     {
-        $key = md5(now()->timestamp . 'yannkuesthardt/spamprotect' . openssl_random_pseudo_bytes(8));
+        $key = Encrypt::generateKey();
 
         if ($this->setKeyInEnvironmentFile($key)) {
             config(['spamprotect.key' => $key]);

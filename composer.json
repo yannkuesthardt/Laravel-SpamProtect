@@ -8,7 +8,6 @@
     ],
     "license": "MIT",
     "type": "library",
-    "homepage": "https://github.com/yannkuesthardt/Laravel-SpamProtect",
     "authors": [
         {
             "name": "yannkuesthardt",
@@ -39,7 +38,8 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "phpstan": "vendor/bin/phpstan"
     },
     "config": {
         "sort-packages": true

@@ -146,8 +146,14 @@ php artisan vendor:publish --tag="laravel-spamprotect-views"
 ## Testing
 <a name="testing"></a>
 
+###PHPUnit
 ```bash
-composer test
+./vendor/bin/phpunit
+```
+
+###PHPStan
+```bash
+./vendor/bin/phpstan
 ```
 
 ## Changelog

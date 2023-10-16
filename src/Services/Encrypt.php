@@ -4,6 +4,11 @@ namespace yannkuesthardt\SpamProtect\Services;
 
 class Encrypt
 {
+    public static function generateKey(): string
+    {
+        return md5(now()->timestamp . 'yannkuesthardt/spamprotect' . openssl_random_pseudo_bytes(8));
+    }
+
     /**
      * @return string
      */
@@ -51,7 +56,7 @@ class Encrypt
         $expression = str_replace('\'', '', $expression);
         $src = ($expression != '')
             ? $expression
-            : "vendor/spamprotect/app.js";
+            : config('spamprotect.js_asset_path', 'vendor/spamprotect/app.js');
         $script = '<script type="text/javascript" src="' . asset($src) . '"></script>';
         return "<?php echo '" . $script . "'; ?>";
     }
