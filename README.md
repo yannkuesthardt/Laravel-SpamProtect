@@ -60,7 +60,7 @@ Add the following two blade directives somewhere in your HTML body tag. Make sur
 To encrypt an email address use the following blade component:
 
 ```html
-<x-spamprotect-email email="hello@example.com"/>
+<x-encrypt-email email="hello@example.com"/>
 ```
 
 This will result in the following HTML code:
@@ -75,7 +75,7 @@ This will result in the following HTML code:
 To encrypt a phone number use the following blade component:
 
 ```html
-<x-spamprotect-phone phone="+1234567890"/>
+<x-encrypt-phone phone="+1234567890"/>
 ```
 
 This will result in the following HTML code:
@@ -90,9 +90,9 @@ This will result in the following HTML code:
 You can also use a custom text for the link:
 
 ```html
-<x-spamprotect-email email="...">
+<x-encrypt-email email="...">
     My Cutom Text
-</x-spamprotect-email>
+</x-encrypt-email>
 ```
 
 This will result in the following HTML code:
@@ -107,7 +107,7 @@ This will result in the following HTML code:
 You can add HTML attributes (e.g. class, id, etc.) to the generated code by passing them to the components.
 
 ```html
-<x-spamprotect-email class="my-class" id="my-id" ...
+<x-encrypt-email class="my-class" id="my-id" ...
 ```
 
 This will result in the following HTML code:
@@ -146,12 +146,12 @@ php artisan vendor:publish --tag="laravel-spamprotect-views"
 ## Testing
 <a name="testing"></a>
 
-###PHPUnit
+### PHPUnit
 ```bash
 ./vendor/bin/phpunit
 ```
 
-###PHPStan
+### PHPStan
 ```bash
 ./vendor/bin/phpstan
 ```

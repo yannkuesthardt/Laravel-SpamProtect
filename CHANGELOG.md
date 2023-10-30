@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v1.1.1
+- Fixed error in README.md instructions
+
 ## v1.1.0
 - Add actual PHPUnit tests for encryption service
 - Removed PHPUnit example test
