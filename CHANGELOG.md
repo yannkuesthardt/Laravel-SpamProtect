@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v1.2.0
+- Added support for HTML code as link text (e.g. icons with <i> tag)
+
 ## v1.1.1
 - Fixed error in README.md instructions
 

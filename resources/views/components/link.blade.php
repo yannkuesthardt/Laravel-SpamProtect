@@ -1,3 +1,7 @@
 <a {{ $attributes->except('href') }} href="#" data-spamprotect-token="{{ $token }}">
-    {!! mb_encode_numericentity(($slot != '' ? $slot : $text), array(0x000000, 0x10ffff, 0, 0xffffff), 'UTF-8') !!}
+    @if($slot != '')
+        {!! $slot !!}
+    @else
+        {!! mb_encode_numericentity($text, array(0x000000, 0x10ffff, 0, 0xffffff), 'UTF-8') !!}
+    @endif
 </a>
