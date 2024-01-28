@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v1.2.1
+- Added support for Livewire v3 navigation
+
 ## v1.2.0
 - Added support for HTML code as link text (e.g. icons with <i> tag)
 
