@@ -1,48 +1,43 @@
-function cryptoJSAesJson() {
-    return {
-        stringify: function (cipherParams) {
-            var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
-            if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-            if (cipherParams.salt) j.s = cipherParams.salt.toString();
-            return JSON.stringify(j);
-        },
-        parse: function (jsonStr) {
-            var j = JSON.parse(jsonStr);
-            var cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Base64.parse(j.ct)});
-            if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
-            if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
-            return cipherParams;
-        }
-    }
+async function decrypt(token, encryptionKey) {
+    const cipher = JSON.parse(atob(token));
+    const iv = new Uint8Array(cipher.iv.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    const ct = new Uint8Array(atob(cipher.ct).split('').map(c => c.charCodeAt(0)));
+    const alg = { name: 'AES-CBC', iv: iv };
+
+    const pwUtf8 = new TextEncoder().encode(encryptionKey);
+    const pwHash = await window.crypto.subtle.digest('SHA-256', pwUtf8);
+    const key = await window.crypto.subtle.importKey('raw', pwHash, alg, false, ['decrypt']);
+    const ptBuffer = await window.crypto.subtle.decrypt(alg, key, ct);
+    return new TextDecoder().decode(ptBuffer);
 }
 
-function initSpamprotect()
+function initSpamProtect()
 {
-    let keyDom = document.getElementById('data-spamprotect-key');
+    let keyDom = document.getElementById('spamprotect-key');
     if (keyDom !== null && keyDom.hasAttribute('data-spamprotect-token')) {
         let encryptionKey = keyDom.getAttribute('data-spamprotect-token');
-        let links = document.getElementsByTagName('a');
-        for (let i = 0; i < links.length; i++) {
-            let link = links[i];
-            if (link.getAttribute('href') === '#' && link.hasAttribute('data-spamprotect-token')) {
+        let links = document.querySelectorAll('a[data-spamprotect-token]');
+        links.forEach(function (link) {
+            if (link.getAttribute('href') === '#') {
                 link.addEventListener("click", (event) => {
-                    linkClick(event, encryptionKey);
+                    linkClick(event, link.getAttribute('data-spamprotect-token'), encryptionKey);
                 });
             }
-        }
+        })
     }
 }
 
-function linkClick(event, encryptionKey)
-{
+function linkClick(event, token, encryptionKey) {
     event.preventDefault();
-    document.location = JSON.parse(CryptoJS.AES.decrypt(CryptoJS.enc.Base64.parse(event.currentTarget.getAttribute('data-spamprotect-token')).toString(CryptoJS.enc.Utf8), encryptionKey, {format: cryptoJSAesJson()}).toString(CryptoJS.enc.Utf8));
+    decrypt(token, encryptionKey).then(function (target) {
+        document.location = target;
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    initSpamprotect();
+    initSpamProtect();
 });
 
 document.addEventListener("livewire:navigated", function() {
-    initSpamprotect();
+    initSpamProtect();
 });

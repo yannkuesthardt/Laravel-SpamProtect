@@ -22,7 +22,7 @@ class EncryptedPhone extends Component
         if (!str_contains($phone, 'tel:')) {
             $phone = 'tel:'. $phone;
         }
-        $this->token = Encrypt::cryptoJsAesEncrypt(Encrypt::getEncryptionKey(), $phone);
+        $this->token = Encrypt::aesEncrypt(Encrypt::getEncryptionKey(), $phone);
     }
 
     /**

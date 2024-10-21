@@ -22,19 +22,12 @@ class Encrypt
      * @param string $value
      * @return string
      */
-    public static function cryptoJsAesEncrypt(string $encryptionKey, string $value): string
+    public static function aesEncrypt(string $encryptionKey, string $value): string
     {
-        $salt = openssl_random_pseudo_bytes(8);
-        $salted = '';
-        $dx = '';
-        while (strlen($salted) < 48) {
-            $dx = md5($dx.$encryptionKey.$salt, true);
-            $salted .= $dx;
-        }
-        $key = substr($salted, 0, 32);
-        $iv  = substr($salted, 32,16);
-        $encrypted_data = openssl_encrypt(json_encode($value), 'aes-256-cbc', $key, 0, $iv);
-        $data = array("ct" => $encrypted_data, "iv" => bin2hex($iv), "s" => bin2hex($salt));
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+        $key = hash('sha256', $encryptionKey, true);
+        $ciphertext = openssl_encrypt($value, 'aes-256-cbc', $key, 0, $iv);
+        $data = array("ct" => $ciphertext, "iv" => bin2hex($iv));
         return base64_encode(json_encode($data));
     }
 
@@ -43,7 +36,7 @@ class Encrypt
      */
     public static function renderBladeKey(): string
     {
-        $element = '<div style="display: none;" id="data-spamprotect-key" data-spamprotect-token="' . config('spamprotect.key') . '"></div>';
+        $element = '<div style="display: none;" id="spamprotect-key" data-spamprotect-token="' . config('spamprotect.key') . '"></div>';
         return "<?php echo '" . $element . "'; ?>";
     }
 
