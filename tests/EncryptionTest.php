@@ -42,7 +42,7 @@ class EncryptionTest extends TestCase
         config([
             'spamprotect.key' => $key,
         ]);
-        $result = Encrypt::cryptoJsAesEncrypt($key, $email);
+        $result = Encrypt::aesEncrypt($key, $email);
         $this->assertIsString($result);
         $this->assertNotEquals($result, $email);
     }
