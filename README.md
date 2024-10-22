@@ -31,8 +31,8 @@ Additionally, some common chars used in e-mail addresses and phone numbers are r
 
 ### Requirements
 
-- PHP 7.4 or higher
-- [Laravel](https://github.com/laravel/framework) 8.0 or higher
+- PHP 8.1 or higher
+- [Laravel](https://github.com/laravel/framework) 10.0 or higher
 
 You can install the package via composer:
 
