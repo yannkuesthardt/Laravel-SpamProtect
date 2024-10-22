@@ -17,6 +17,9 @@ Additionally, some common chars used in e-mail addresses and phone numbers are r
 </a>
 ```
 
+***Security Note:** Do not use this extension to pass sensitive data to the frontend. The encryption is only meant to
+stop crawlers and can easily be circumvented by a human.*
+
 - [Installation](#installation)
 - [Upgrade](#upgrade)
 - [Usage](#usage)
@@ -33,6 +36,8 @@ Additionally, some common chars used in e-mail addresses and phone numbers are r
 
 - PHP 8.1 or higher
 - [Laravel](https://github.com/laravel/framework) 10.0 or higher
+
+### Getting Started
 
 You can install the package via composer:
 
@@ -53,14 +58,20 @@ Add the following two blade directives somewhere in your HTML body tag.
 @spamprotectJs
 ```
 
-***Hint:** You can override the default path to the SpamProtect JS file:* `@spamprotectJs('your/custom/path/to/spamprotect/app.js')`
+***Hint:** Optionally you can override the default path to the JavaScript file:* `@spamprotectJs('your/custom/path/to/spamprotect/spamprotect.js')`
 
 ## Upgrade
 <a name="upgrade"></a>
 ### Upgrade from v1 to v2
-If you used v1 in the past, you needed to install CryptoJS and require it in your own JavaScript first. As CryptoJS
-has been discontinued and most browsers offer native support with tools such as crypto, we have rebuilt this extension
-to work with native JavaScript. This means you can remove CryptoJS if not used elsewhere in your project.
+If you used v1 in the past, you needed to publish our JavaScript to be accessible via `@spamprotectJs`. We have now
+added routing to the package, so you can just use `@spamprotectJs` without publishing our JavaScript first. If you
+have set a custom path via the blade directive or the config, remove it to get the default JavaScript via route. You
+may have to republish the config file, depending on your setup.
+
+Additionally, you needed to install CryptoJS and require it in your own JavaScript first. As CryptoJS has been
+discontinued and most browsers offer native support with tools such as crypto, we have rebuilt this extension
+to work with native JavaScript. For this to work either switch to our default JavaScript using the new route or
+republish the JavaScript file yourself. If not used anywhere else in your project you can remove CryptoJS.
 
 ## Usage
 <a name="usage"></a>
@@ -139,10 +150,12 @@ You can publish the config using:
 php artisan vendor:publish --tag="laravel-spamprotect-config"
 ```
 
+In the config you can customize the URL used for the default JavaScript or override the path completely. 
+
 You can publish the assets (javascript) using:
 
 ```bash
-php artisan vendor:publish --tag="laravel-spamprotect-public"
+php artisan vendor:publish --tag="laravel-spamprotect-assets"
 ```
 
 You can publish the views using
@@ -152,6 +165,8 @@ php artisan vendor:publish --tag="laravel-spamprotect-views"
 ```
 ## Contributing
 <a name="contributing"></a>
+Feel free to suggest changes, ask for new features or fix bugs yourself. We're sure there are a lot of improvements
+that could be made, and we would be very happy to merge useful pull requests. Thanks!
 
 ### Testing
 <a name="testing"></a>

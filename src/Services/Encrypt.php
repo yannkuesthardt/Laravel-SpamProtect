@@ -47,10 +47,17 @@ class Encrypt
     public static function renderBladeJs(string $expression): string
     {
         $expression = str_replace('\'', '', $expression);
-        $src = ($expression != '')
+        $src = ($expression !== '')
             ? $expression
-            : config('spamprotect.js_asset_path', 'vendor/spamprotect/app.js');
-        $script = '<script type="text/javascript" src="' . asset($src) . '"></script>';
+            : config('spamprotect.js_asset_path');
+        if ($src == null) {
+            $src = route('spamprotect.script')
+                . '?id='
+                . md5(\filemtime(SP_ROOT . '/dist/spamprotect.js') . '');
+        } else {
+            $src = asset($src);
+        }
+        $script = '<script  type="application/javascript" src="' . $src . '"></script>';
         return "<?php echo '" . $script . "'; ?>";
     }
 }

@@ -1,7 +1,17 @@
 {
   "name": "laravel-spamprotect",
   "version": "1.0.0",
-  "dependencies": {
-    "crypto-js": "^4.0"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "devDependencies": {
+    "laravel-mix": "^6.0.49"
   }
 }
