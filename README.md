@@ -63,15 +63,20 @@ Add the following two blade directives somewhere in your HTML body tag.
 ## Upgrade
 <a name="upgrade"></a>
 ### Upgrade from v1 to v2
+<a name="upgrade-v1-to-v2"></a>
+A few things have changed since version 1, so please read this carefully to avoid any issues.
+
 If you used v1 in the past, you needed to publish our JavaScript to be accessible via `@spamprotectJs`. We have now
 added routing to the package, so you can just use `@spamprotectJs` without publishing our JavaScript first. If you
 have set a custom path via the blade directive or the config, remove it to get the default JavaScript via route. You
 may have to republish the config file, depending on your setup.
 
-Additionally, you needed to install CryptoJS and require it in your own JavaScript first. As CryptoJS has been
-discontinued and most browsers offer native support with tools such as crypto, we have rebuilt this extension
-to work with native JavaScript. For this to work either switch to our default JavaScript using the new route or
-republish the JavaScript file yourself. If not used anywhere else in your project you can remove CryptoJS.
+Additionally, in v1 you needed to install [CryptoJS](https://www.npmjs.com/package/crypto-js) and require it in your
+own JavaScript first. As CryptoJS has been discontinued and most browsers offer native support with tools such as
+[Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Crypto), we have rebuilt this extension to work with native
+JavaScript. For our new JavaScript to work either use `@spamprotectJs` without any custom path to access the new
+routing to our default JavaScript or republish the JavaScript file yourself. If not used anywhere else in your project
+feel free to completely remove CryptoJS.
 
 ## Usage
 <a name="usage"></a>

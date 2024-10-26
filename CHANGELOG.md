@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v2.0.0
+*Please read the upgrade guide in the [README](README.md#upgrade-from-v1-to-v2) for details on upgrading.*
+- Completely reworked encryption to replace CryptoJS with vanilla JavaScript
+- Added routing support to make publishing JavaScript before usage unnecessary
+- Ended active support for PHP 7.4 & 8.0 and Laravel 8 & 9
+
 ## v1.2.1
 - Added support for Livewire v3 navigation
 
