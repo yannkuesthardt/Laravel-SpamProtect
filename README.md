@@ -17,14 +17,27 @@ Additionally, some common chars used in e-mail addresses and phone numbers are r
 </a>
 ```
 
+***Security Note:** Do not use this extension to pass sensitive data to the frontend. The encryption is only meant to
+stop crawlers and can easily be circumvented by a human.*
+
+- [Installation](#installation)
+- [Upgrade](#upgrade)
+- [Usage](#usage)
+- [Customization](#customization)
+- [Testing](#testing)
+- [Changelog](#changelog)
+- [Security Vulnerabilities](#security-vulnerabilities)
+- [License](#license)
+
 ## Installation
 <a name="installation"></a>
 
 ### Requirements
 
-- PHP 7.4 or higher
-- [Laravel](https://github.com/laravel/framework) 8.0 or higher
-- [CryptoJS](https://www.npmjs.com/package/crypto-js) 4.0.0 or higher
+- PHP 8.1 or higher
+- [Laravel](https://github.com/laravel/framework) 10.0 or higher
+
+### Getting Started
 
 You can install the package via composer:
 
@@ -38,21 +51,32 @@ Run the installation command to generate a new encryption key and clear necessar
 php artisan spamprotect:install
 ```
 
-Make sure to import CryptoJs within your JS setup, so it can be used by our JS. This can be done in your `bootstrap.js` file for example.
-
-```js
-import CryptoJS from 'crypto-js';
-window.CryptoJS = CryptoJS;
-```
-
-Add the following two blade directives somewhere in your HTML body tag. Make sure you require your own JS first, so that CryptoJS is available.
+Add the following two blade directives somewhere in your HTML body tag.
 
 ```blade
 @spamprotectKey
 @spamprotectJs
 ```
 
-***Hint:** You can override the default path to the SpamProtect JS file:* `@spamprotectJs('your/custom/path/to/spamprotect/app.js')`
+***Hint:** Optionally you can override the default path to the JavaScript file:* `@spamprotectJs('your/custom/path/to/spamprotect/spamprotect.js')`
+
+## Upgrade
+<a name="upgrade"></a>
+### Upgrade from v1 to v2
+<a name="upgrade-v1-to-v2"></a>
+A few things have changed since version 1, so please read this carefully to avoid any issues.
+
+If you used v1 in the past, you needed to publish our JavaScript to be accessible via `@spamprotectJs`. We have now
+added routing to the package, so you can just use `@spamprotectJs` without publishing our JavaScript first. If you
+have set a custom path via the blade directive or the config, remove it to get the default JavaScript via route. You
+may have to republish the config file, depending on your setup.
+
+Additionally, in v1 you needed to install [CryptoJS](https://www.npmjs.com/package/crypto-js) and require it in your
+own JavaScript first. As CryptoJS has been discontinued and most browsers offer native support with tools such as
+[Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Crypto), we have rebuilt this extension to work with native
+JavaScript. For our new JavaScript to work either use `@spamprotectJs` without any custom path to access the new
+routing to our default JavaScript or republish the JavaScript file yourself. If not used anywhere else in your project
+feel free to completely remove CryptoJS.
 
 ## Usage
 <a name="usage"></a>
@@ -90,7 +114,7 @@ This will result in the following HTML code:
 You can also use a custom text for the link:
 
 ```html
-<x-encrypt-email email="...">
+<x-encrypt-email email="hello@example.com">
     My Cutom Text
 </x-encrypt-email>
 ```
@@ -98,7 +122,7 @@ You can also use a custom text for the link:
 This will result in the following HTML code:
 
 ```html
-<a href="#" data-spamprotect-token="...">
+<a href="#" data-spamprotect-token="eyJjdCI6Ilk4...">
     My Custom Text
 </a>
 ```
@@ -131,10 +155,12 @@ You can publish the config using:
 php artisan vendor:publish --tag="laravel-spamprotect-config"
 ```
 
+In the config you can customize the URL used for the default JavaScript or override the path completely. 
+
 You can publish the assets (javascript) using:
 
 ```bash
-php artisan vendor:publish --tag="laravel-spamprotect-public"
+php artisan vendor:publish --tag="laravel-spamprotect-assets"
 ```
 
 You can publish the views using
@@ -142,29 +168,34 @@ You can publish the views using
 ```bash
 php artisan vendor:publish --tag="laravel-spamprotect-views"
 ```
+## Contributing
+<a name="contributing"></a>
+Feel free to suggest changes, ask for new features or fix bugs yourself. We're sure there are a lot of improvements
+that could be made, and we would be very happy to merge useful pull requests. Thanks!
 
-## Testing
+### Testing
 <a name="testing"></a>
 
-### PHPUnit
+**PHPUnit**
 ```bash
-./vendor/bin/phpunit
+composer test
 ```
 
-### PHPStan
+**PHPStan**
 ```bash
-./vendor/bin/phpstan
+composer phpstan
 ```
+
+### Security Vulnerabilities
+<a name="security-vulnerabilities"></a>
+
+Please review [our security policy](https://github.com/yannkuesthardt/Laravel-SpamProtect/security/policy) on how to report security vulnerabilities.
+
 
 ## Changelog
 <a name="changelog"></a>
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Security Vulnerabilities
-<a name="security-vulnerabilities"></a>
-
-Please review [our security policy](https://github.com/yannkuesthardt/Laravel-SpamProtect/security/policy) on how to report security vulnerabilities.
 
 ## License
 <a name="license"></a>

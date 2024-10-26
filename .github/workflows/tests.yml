@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ "7.4", "8.0", "8.1", "8.2" ]
-        composer-dependency: [ prefer-stable, prefer-lowest ]
+        php: [ "8.1", "8.2" ]
+        composer-dependency: [ prefer-stable ]
         exclude:
           - php: "8.1"
             composer-dependency: prefer-lowest

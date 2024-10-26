@@ -22,7 +22,7 @@ class EncryptedEmail extends Component
         if (!str_contains($email, 'mailto:')) {
             $email = 'mailto:'. $email;
         }
-        $this->token = Encrypt::cryptoJsAesEncrypt(Encrypt::getEncryptionKey(), $email);
+        $this->token = Encrypt::aesEncrypt(Encrypt::getEncryptionKey(), $email);
     }
 
     /**

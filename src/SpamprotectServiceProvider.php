@@ -13,23 +13,37 @@ use yannkuesthardt\SpamProtect\View\Components\EncryptedPhone;
 class SpamprotectServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any package services.
+     * Register the spam-protect services.
+     */
+    public function register(): void
+    {
+        if (!defined('SP_ROOT')) {
+            define('SP_ROOT', realpath(__DIR__ . '/..'));
+        }
+
+        $this->mergeConfigFrom(
+            SP_ROOT.'/config/spamprotect.php', 'spamprotect'
+        );
+    }
+
+    /**
+     * Bootstrap the spam-protect services.
      */
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/spamprotect.php' => config_path('spamprotect.php'),
+            SP_ROOT.'/config/spamprotect.php' => config_path('spamprotect.php'),
         ], 'laravel-spamprotect-config');
 
         $this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/spamprotect'),
-        ], 'laravel-spamprotect-public');
+            SP_ROOT.'/resources/assets' => resource_path('js/vendor/spamprotect'),
+        ], 'laravel-spamprotect-assets');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/spamprotect'),
+            SP_ROOT.'/resources/views' => resource_path('views/vendor/spamprotect'),
         ], 'laravel-spamprotect-views');
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'spamprotect');
+        $this->loadViewsFrom(SP_ROOT.'/resources/views', 'spamprotect');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -38,6 +52,18 @@ class SpamprotectServiceProvider extends ServiceProvider
             ]);
         }
 
+        $this->registerBladeDirectives();
+
+        $this->loadRoutesFrom(SP_ROOT.'/routes/web.php');
+    }
+
+    /**
+     * Register the spam-protect blade directives.
+     *
+     * @return void
+     */
+    protected function registerBladeDirectives(): void
+    {
         Blade::directive('spamprotectKey', function () {
             return Encrypt::renderBladeKey();
         });
@@ -48,15 +74,5 @@ class SpamprotectServiceProvider extends ServiceProvider
 
         Blade::component('encrypt-email', EncryptedEmail::class);
         Blade::component('encrypt-phone', EncryptedPhone::class);
-    }
-
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/spamprotect.php', 'spamprotect'
-        );
     }
 }
