@@ -19,6 +19,7 @@ function initSpamProtect()
         let links = document.querySelectorAll('a[data-spamprotect-token]');
         links.forEach(function (link) {
             if (link.getAttribute('href') === '#') {
+                link.removeAttribute('href');
                 link.addEventListener("click", (event) => {
                     linkClick(event, link.getAttribute('data-spamprotect-token'), encryptionKey);
                 });
