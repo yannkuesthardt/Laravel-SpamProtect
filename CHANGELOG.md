@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v2.0.1
+- Fixed error causing duplicate click events when using livewire navigation ([#4](https://github.com/yannkuesthardt/Laravel-SpamProtect/pull/4))
+
 ## v2.0.0
 *Please read the upgrade guide in the [README](README.md#upgrade-from-v1-to-v2) for details on upgrading.*
 - Completely reworked encryption to replace CryptoJS with vanilla JavaScript

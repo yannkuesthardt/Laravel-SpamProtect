@@ -18,8 +18,8 @@ function initSpamProtect()
         let encryptionKey = keyDom.getAttribute('data-spamprotect-token');
         let links = document.querySelectorAll('a[data-spamprotect-token]');
         links.forEach(function (link) {
-            if (link.getAttribute('href') === '#' && !link.dataset.spamprotectclickevent) {
-                link.setAttribute('data-spamprotectclickevent', 'true');
+            if (link.getAttribute('href') === '#' && !link.hasAttribute('data-spamprotect-clickevent')) {
+                link.setAttribute('data-spamprotect-clickevent', 'true');
                 link.addEventListener("click", (event) => {
                     linkClick(event, link.getAttribute('data-spamprotect-token'), encryptionKey);
                 });
