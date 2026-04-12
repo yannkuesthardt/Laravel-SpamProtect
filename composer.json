@@ -15,7 +15,7 @@
             "homepage": "https://yannkuesthardt.de"
         }
     ],
-    "version": "3.0.0",
+    "version": "3.1.0",
     "require": {
         "php": ">=8.2",
         "ext-openssl": "*",

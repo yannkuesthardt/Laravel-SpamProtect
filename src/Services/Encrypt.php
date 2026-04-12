@@ -57,7 +57,8 @@ class Encrypt
         } else {
             $src = asset($src);
         }
-        $script = '<script  type="application/javascript" src="' . $src . '"></script>';
+        $defer = config('spamprotect.js_defer', true) ? ' defer' : '';
+        $script = '<script type="application/javascript" src="' . $src . '"' . $defer . '></script>';
         return "<?php echo '" . $script . "'; ?>";
     }
 }
