@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v3.1.0
+- Added `defer` attribute support for the `@spamprotectJs` script tag (enabled by default, configurable via `SPAMPROTECT_JS_DEFER`)
+
 ## v3.0.0
 - Added support for Laravel 13
 - Dropped support for PHP 8.1 (PHP 8.2 is now the minimum requirement)

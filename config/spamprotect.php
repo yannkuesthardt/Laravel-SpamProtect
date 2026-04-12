@@ -28,6 +28,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Spam Protect JavaScript Defer
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the `defer` attribute is added to the script tag rendered
+    | by @spamprotectJs. Set to false to disable deferred loading.
+    |
+    */
+
+    'js_defer' => env('SPAMPROTECT_JS_DEFER', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | URL configuration
     |--------------------------------------------------------------------------
     |
