@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-spamprotect` will be documented in this file.
 
+## v3.0.0
+- Added support for Laravel 13
+- Dropped support for PHP 8.1 (PHP 8.2 is now the minimum requirement)
+- Dropped support for Laravel 10 & 11 (Laravel 12 is now the minimum requirement)
+- Added PHP 8.5 to the CI test matrix
+- Updated PHPUnit configuration to PHPUnit 12 schema
+- Updated GitHub Actions workflows to actions/checkout@v4
+
 ## v2.0.2
 - Added support for Laravel 12
 

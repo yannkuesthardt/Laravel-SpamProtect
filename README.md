@@ -34,8 +34,8 @@ stop crawlers and can easily be circumvented by a human.*
 
 ### Requirements
 
-- PHP 8.1 or higher
-- [Laravel](https://github.com/laravel/framework) 10.0 or higher
+- PHP 8.2 or higher
+- [Laravel](https://github.com/laravel/framework) 12.0 or higher
 
 ### Getting Started
 
